@@ -63,7 +63,6 @@ namespace IdleMiner
                 settings.ActiveNvidiaFile = Path.Combine(Environment.CurrentDirectory, "nvidia.txt");
                 settings.IdleNvidiaFile = Path.Combine(Environment.CurrentDirectory, "nvidia.txt");
             }
-            settings.ToJsonFile();
             return settings;
         }
 

@@ -43,6 +43,7 @@ namespace IdleMiner
                             // Invalid json file, use default settings
                         }
                     }
+                    Settings.ToJsonFile();
 
                     exitThreads = false;
                     ModifiedSettings = true;
