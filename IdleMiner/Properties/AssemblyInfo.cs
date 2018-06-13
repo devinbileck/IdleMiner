@@ -113,4 +113,17 @@ public class AssemblyInfo
             return ((AssemblyCompanyAttribute)attributes[0]).Company;
         }
     }
+
+    public static string Guid
+    {
+        get
+        {
+            object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(GuidAttribute), false);
+            if (attributes.Length == 0)
+            {
+                return System.Guid.NewGuid().ToString();
+            }
+            return ((GuidAttribute)attributes[0]).Value;
+        }
+    }
 }
