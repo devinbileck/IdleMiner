@@ -10,6 +10,6 @@ and either disabled or reduced hash rates (minimal CPU and GPU resources) while 
 
 **Note:** xmr-stak must already be downloaded and configured.
 
-1. Download the latest [release](/releases/latest).
+1. Download the latest [release](https://github.com/devinbileck/IdleMiner/releases/latest).
 2. Extract the zip file into the same folder as xmr-stak.
 3. Run IdleMiner.exe - It will show up in the Windows system tray (notification area).
