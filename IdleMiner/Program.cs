@@ -15,36 +15,45 @@ namespace IdleMiner
         [STAThread]
         public static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
-            using (SystemTrayIcon systemTrayIcon = new SystemTrayIcon())
+            using (Mutex mutex = new Mutex(false, "Global\\" + AssemblyInfo.Guid))
             {
-                systemTrayIcon.Display();
-
-                string settingsFilePath = Path.Combine(Environment.CurrentDirectory, "IdleMinerSettings.json");
-                Settings = new Settings(settingsFilePath);
-                if (File.Exists(settingsFilePath))
+                if (!mutex.WaitOne(0, false))
                 {
-                    try
-                    {
-                        Settings = Settings.FromJsonFile(settingsFilePath);
-                    }
-                    catch (Newtonsoft.Json.JsonReaderException)
-                    {
-                        // Invalid json file, use default settings
-                    }
+                    // Instance already running
+                    return;
                 }
 
-                exitThreads = false;
-                ModifiedSettings = true;
-                Thread miningThread = new Thread(new ThreadStart(MiningThread));
-                miningThread.Start();
-                
-                Application.Run();
-            }
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
 
-            exitThreads = true;
+                using (SystemTrayIcon systemTrayIcon = new SystemTrayIcon())
+                {
+                    systemTrayIcon.Display();
+
+                    string settingsFilePath = Path.Combine(Environment.CurrentDirectory, "IdleMinerSettings.json");
+                    Settings = Settings.FromDefaults(settingsFilePath);
+                    if (File.Exists(settingsFilePath))
+                    {
+                        try
+                        {
+                            Settings = Settings.FromJsonFile(settingsFilePath);
+                        }
+                        catch (Newtonsoft.Json.JsonReaderException)
+                        {
+                            // Invalid json file, use default settings
+                        }
+                    }
+
+                    exitThreads = false;
+                    ModifiedSettings = true;
+                    Thread miningThread = new Thread(new ThreadStart(MiningThread));
+                    miningThread.Start();
+
+                    Application.Run();
+                }
+
+                exitThreads = true;
+            }
         }
 
         private static void MiningThread()
