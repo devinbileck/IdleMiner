@@ -27,35 +27,44 @@ namespace IdleMiner
         public Settings(string settingsFilePath)
         {
             filePath = settingsFilePath;
-            IdleTime = 60;
+        }
 
-            // Attempt to automatically set files if located in same directory
+        public static Settings FromDefaults(string settingsFilePath)
+        {
+            Settings settings = new Settings(settingsFilePath);
+            settings.IdleTime = 60;
+            if (File.Exists(Path.Combine(Environment.CurrentDirectory, "xmr-stak.exe")))
+            {
+                settings.MinerLocation = Path.Combine(Environment.CurrentDirectory, "xmr-stak.exe");
+            }
             if (File.Exists(Path.Combine(Environment.CurrentDirectory, "config.txt")))
             {
-                ConfigFile = Path.Combine(Environment.CurrentDirectory, "config.txt");
+                settings.ConfigFile = Path.Combine(Environment.CurrentDirectory, "config.txt");
             }
             if (File.Exists(Path.Combine(Environment.CurrentDirectory, "pools.txt")))
             {
-                PoolFile = Path.Combine(Environment.CurrentDirectory, "pools.txt");
+                settings.PoolFile = Path.Combine(Environment.CurrentDirectory, "pools.txt");
             }
             if (File.Exists(Path.Combine(Environment.CurrentDirectory, "cpu.txt")))
             {
-                IdleCpuEnabled = true;
-                ActiveCpuFile = Path.Combine(Environment.CurrentDirectory, "cpu.txt");
-                IdleCpuFile = Path.Combine(Environment.CurrentDirectory, "cpu.txt");
+                settings.IdleCpuEnabled = true;
+                settings.ActiveCpuFile = Path.Combine(Environment.CurrentDirectory, "cpu.txt");
+                settings.IdleCpuFile = Path.Combine(Environment.CurrentDirectory, "cpu.txt");
             }
             if (File.Exists(Path.Combine(Environment.CurrentDirectory, "amd.txt")))
             {
-                IdleAmdEnabled = true;
-                ActiveAmdFile = Path.Combine(Environment.CurrentDirectory, "amd.txt");
-                IdleAmdFile = Path.Combine(Environment.CurrentDirectory, "amd.txt");
+                settings.IdleAmdEnabled = true;
+                settings.ActiveAmdFile = Path.Combine(Environment.CurrentDirectory, "amd.txt");
+                settings.IdleAmdFile = Path.Combine(Environment.CurrentDirectory, "amd.txt");
             }
             if (File.Exists(Path.Combine(Environment.CurrentDirectory, "nvidia.txt")))
             {
-                IdleNvidiaEnabled = true;
-                ActiveNvidiaFile = Path.Combine(Environment.CurrentDirectory, "nvidia.txt");
-                IdleNvidiaFile = Path.Combine(Environment.CurrentDirectory, "nvidia.txt");
+                settings.IdleNvidiaEnabled = true;
+                settings.ActiveNvidiaFile = Path.Combine(Environment.CurrentDirectory, "nvidia.txt");
+                settings.IdleNvidiaFile = Path.Combine(Environment.CurrentDirectory, "nvidia.txt");
             }
+            settings.ToJsonFile();
+            return settings;
         }
 
         public static Settings FromJsonFile(string settingsFilePath)
