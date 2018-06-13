@@ -15,9 +15,10 @@ namespace IdleMiner
 
         public bool IsRunning()
         {
+            if (!File.Exists(Path))
+                return false;
             string fileName = System.IO.Path.GetFileName(Path);
-            Process[] processes = Process.GetProcessesByName(
-                fileName.Substring(0, fileName.LastIndexOf('.')));
+            Process[] processes = Process.GetProcessesByName(fileName.Substring(0, fileName.LastIndexOf('.')));
             return processes.Length > 0;
         }
 
