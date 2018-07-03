@@ -8,8 +8,14 @@ and either disabled or reduced hash rates (minimal CPU and GPU resources) while 
 
 ## Getting Started
 
-**Note:** xmr-stak must already be downloaded and configured.
+**Note:** [xmr-stak](https://github.com/fireice-uk/xmr-stak) must already be downloaded and configured.
 
-1. Download the latest [release](https://github.com/devinbileck/IdleMiner/releases/latest).
+1. Download the latest IdleMiner [release](https://github.com/devinbileck/IdleMiner/releases/latest).
 2. Extract the zip file into the same folder as xmr-stak.
-3. Run IdleMiner.exe - It will show up in the Windows system tray (notification area).
+3. Run IdleMiner.exe - It will show up in the Windows system tray (notification area) as a pickaxe icon.
+
+![System Tray](https://image.ibb.co/n5jL1d/Idle_Miner_System_Tray.png "System Tray")
+
+4. Right click on the icon and select the Settings option. Configure your settings as desired and click OK to begin mining.
+
+![Settings Dialog](https://image.ibb.co/d5ODMd/Idle_Miner_Settings.png "Settings Dialog")
