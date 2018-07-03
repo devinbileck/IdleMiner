@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Reflection;
 using System.Windows.Forms;
 
 namespace IdleMiner
@@ -13,12 +12,12 @@ namespace IdleMiner
         public AboutBox()
         {
             InitializeComponent();
-            this.Text = String.Format("About {0}", AssemblyInfo.Title);
-            this.labelProductName.Text = AssemblyInfo.Product;
-            this.labelVersion.Text = String.Format("Version {0}", AssemblyInfo.Version);
-            this.labelCopyright.Text = AssemblyInfo.Copyright;
-            this.labelCompanyName.Text = AssemblyInfo.Company;
-            this.richTextBoxDescription.Text = String.Format("{0}\r\n\r\n{1}\r\n\r\n{2}", AssemblyInfo.Description, projectURL, iconAttribution);
+            Text = String.Format("About {0}", AssemblyInfo.Title);
+            labelProductName.Text = AssemblyInfo.Product;
+            labelVersion.Text = String.Format("Version {0}", AssemblyInfo.Version);
+            labelCopyright.Text = AssemblyInfo.Copyright;
+            labelCompanyName.Text = AssemblyInfo.Company;
+            richTextBoxDescription.Text = String.Format("{0}\r\n\r\n{1}\r\n\r\n{2}", AssemblyInfo.Description, projectURL, iconAttribution);
         }
 
         private void RichTextBoxDescription_LinkClicked(object sender, LinkClickedEventArgs e)
