@@ -50,6 +50,9 @@
             this.configTextBox = new System.Windows.Forms.TextBox();
             this.configLabel = new System.Windows.Forms.Label();
             this.activeGroupBox = new System.Windows.Forms.GroupBox();
+            this.activeCpuUsageUnitsLabel = new System.Windows.Forms.Label();
+            this.activeCpuUsageLabel = new System.Windows.Forms.Label();
+            this.activeCpuUsageNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.activeAmdCheckBox = new System.Windows.Forms.CheckBox();
             this.activeNvidiaCheckBox = new System.Windows.Forms.CheckBox();
             this.activeCpuCheckBox = new System.Windows.Forms.CheckBox();
@@ -66,13 +69,14 @@
             this.poolLabel = new System.Windows.Forms.Label();
             this.idleGroupBox.SuspendLayout();
             this.activeGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.activeCpuUsageNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.idleTimeNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // okButton
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.okButton.Location = new System.Drawing.Point(322, 329);
+            this.okButton.Location = new System.Drawing.Point(322, 354);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 0;
@@ -83,7 +87,7 @@
             // cancelButton
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancelButton.Location = new System.Drawing.Point(403, 329);
+            this.cancelButton.Location = new System.Drawing.Point(403, 354);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 1;
@@ -271,6 +275,9 @@
             // 
             // activeGroupBox
             // 
+            this.activeGroupBox.Controls.Add(this.activeCpuUsageUnitsLabel);
+            this.activeGroupBox.Controls.Add(this.activeCpuUsageLabel);
+            this.activeGroupBox.Controls.Add(this.activeCpuUsageNumericUpDown);
             this.activeGroupBox.Controls.Add(this.activeAmdCheckBox);
             this.activeGroupBox.Controls.Add(this.activeNvidiaCheckBox);
             this.activeGroupBox.Controls.Add(this.activeCpuCheckBox);
@@ -282,15 +289,48 @@
             this.activeGroupBox.Controls.Add(this.activeCpuBrowseButton);
             this.activeGroupBox.Location = new System.Drawing.Point(12, 217);
             this.activeGroupBox.Name = "activeGroupBox";
-            this.activeGroupBox.Size = new System.Drawing.Size(467, 100);
+            this.activeGroupBox.Size = new System.Drawing.Size(467, 127);
             this.activeGroupBox.TabIndex = 10;
             this.activeGroupBox.TabStop = false;
             this.activeGroupBox.Text = "Active Settings";
             // 
+            // activeCpuUsageUnitsLabel
+            // 
+            this.activeCpuUsageUnitsLabel.AutoSize = true;
+            this.activeCpuUsageUnitsLabel.Enabled = false;
+            this.activeCpuUsageUnitsLabel.Location = new System.Drawing.Point(166, 45);
+            this.activeCpuUsageUnitsLabel.Name = "activeCpuUsageUnitsLabel";
+            this.activeCpuUsageUnitsLabel.Size = new System.Drawing.Size(15, 13);
+            this.activeCpuUsageUnitsLabel.TabIndex = 29;
+            this.activeCpuUsageUnitsLabel.Text = "%";
+            // 
+            // activeCpuUsageLabel
+            // 
+            this.activeCpuUsageLabel.AutoSize = true;
+            this.activeCpuUsageLabel.Enabled = false;
+            this.activeCpuUsageLabel.Location = new System.Drawing.Point(7, 45);
+            this.activeCpuUsageLabel.Name = "activeCpuUsageLabel";
+            this.activeCpuUsageLabel.Size = new System.Drawing.Size(63, 13);
+            this.activeCpuUsageLabel.TabIndex = 28;
+            this.activeCpuUsageLabel.Text = "CPU Usage";
+            // 
+            // activeCpuUsageNumericUpDown
+            // 
+            this.activeCpuUsageNumericUpDown.Enabled = false;
+            this.activeCpuUsageNumericUpDown.Location = new System.Drawing.Point(96, 43);
+            this.activeCpuUsageNumericUpDown.Name = "activeCpuUsageNumericUpDown";
+            this.activeCpuUsageNumericUpDown.Size = new System.Drawing.Size(64, 20);
+            this.activeCpuUsageNumericUpDown.TabIndex = 27;
+            this.activeCpuUsageNumericUpDown.Value = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
+            // 
             // activeAmdCheckBox
             // 
             this.activeAmdCheckBox.AutoSize = true;
-            this.activeAmdCheckBox.Location = new System.Drawing.Point(10, 71);
+            this.activeAmdCheckBox.Location = new System.Drawing.Point(10, 97);
             this.activeAmdCheckBox.Name = "activeAmdCheckBox";
             this.activeAmdCheckBox.Size = new System.Drawing.Size(50, 17);
             this.activeAmdCheckBox.TabIndex = 24;
@@ -301,7 +341,7 @@
             // activeNvidiaCheckBox
             // 
             this.activeNvidiaCheckBox.AutoSize = true;
-            this.activeNvidiaCheckBox.Location = new System.Drawing.Point(10, 45);
+            this.activeNvidiaCheckBox.Location = new System.Drawing.Point(10, 71);
             this.activeNvidiaCheckBox.Name = "activeNvidiaCheckBox";
             this.activeNvidiaCheckBox.Size = new System.Drawing.Size(62, 17);
             this.activeNvidiaCheckBox.TabIndex = 21;
@@ -332,7 +372,7 @@
             // activeAmdBrowseButton
             // 
             this.activeAmdBrowseButton.Enabled = false;
-            this.activeAmdBrowseButton.Location = new System.Drawing.Point(404, 67);
+            this.activeAmdBrowseButton.Location = new System.Drawing.Point(404, 93);
             this.activeAmdBrowseButton.Name = "activeAmdBrowseButton";
             this.activeAmdBrowseButton.Size = new System.Drawing.Size(54, 23);
             this.activeAmdBrowseButton.TabIndex = 26;
@@ -343,7 +383,7 @@
             // activeNvidiaTextBox
             // 
             this.activeNvidiaTextBox.Enabled = false;
-            this.activeNvidiaTextBox.Location = new System.Drawing.Point(96, 43);
+            this.activeNvidiaTextBox.Location = new System.Drawing.Point(96, 69);
             this.activeNvidiaTextBox.Name = "activeNvidiaTextBox";
             this.activeNvidiaTextBox.ReadOnly = true;
             this.activeNvidiaTextBox.Size = new System.Drawing.Size(302, 20);
@@ -352,7 +392,7 @@
             // activeNvidiaBrowseButton
             // 
             this.activeNvidiaBrowseButton.Enabled = false;
-            this.activeNvidiaBrowseButton.Location = new System.Drawing.Point(404, 41);
+            this.activeNvidiaBrowseButton.Location = new System.Drawing.Point(404, 67);
             this.activeNvidiaBrowseButton.Name = "activeNvidiaBrowseButton";
             this.activeNvidiaBrowseButton.Size = new System.Drawing.Size(54, 23);
             this.activeNvidiaBrowseButton.TabIndex = 23;
@@ -363,7 +403,7 @@
             // activeAmdTextBox
             // 
             this.activeAmdTextBox.Enabled = false;
-            this.activeAmdTextBox.Location = new System.Drawing.Point(96, 69);
+            this.activeAmdTextBox.Location = new System.Drawing.Point(96, 95);
             this.activeAmdTextBox.Name = "activeAmdTextBox";
             this.activeAmdTextBox.ReadOnly = true;
             this.activeAmdTextBox.Size = new System.Drawing.Size(302, 20);
@@ -442,7 +482,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(490, 364);
+            this.ClientSize = new System.Drawing.Size(490, 389);
             this.Controls.Add(this.poolBrowseButton);
             this.Controls.Add(this.poolTextBox);
             this.Controls.Add(this.poolLabel);
@@ -466,6 +506,7 @@
             this.idleGroupBox.PerformLayout();
             this.activeGroupBox.ResumeLayout(false);
             this.activeGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.activeCpuUsageNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.idleTimeNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -509,5 +550,8 @@
         private System.Windows.Forms.Button poolBrowseButton;
         private System.Windows.Forms.TextBox poolTextBox;
         private System.Windows.Forms.Label poolLabel;
+        private System.Windows.Forms.Label activeCpuUsageLabel;
+        private System.Windows.Forms.NumericUpDown activeCpuUsageNumericUpDown;
+        private System.Windows.Forms.Label activeCpuUsageUnitsLabel;
     }
 }

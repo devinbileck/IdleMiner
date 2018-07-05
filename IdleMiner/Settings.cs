@@ -10,10 +10,11 @@ namespace IdleMiner
         public string MinerLocation { get; set; }
         public string ConfigFile { get; set; }
         public string PoolFile { get; set; }
-        public decimal IdleTime { get; set; }
+        public int IdleTime { get; set; }
         public bool ActiveAmdEnabled { get; set; }
         public string ActiveAmdFile { get; set; }
         public bool ActiveCpuEnabled { get; set; }
+        public int ActiveCpuUsage { get; set; }
         public string ActiveCpuFile { get; set; }
         public bool ActiveNvidiaEnabled { get; set; }
         public string ActiveNvidiaFile { get; set; }
@@ -33,6 +34,7 @@ namespace IdleMiner
         {
             Settings settings = new Settings(settingsFilePath);
             settings.IdleTime = 60;
+            settings.ActiveCpuUsage = 90;
             if (File.Exists(Path.Combine(Environment.CurrentDirectory, "xmr-stak.exe")))
             {
                 settings.MinerLocation = Path.Combine(Environment.CurrentDirectory, "xmr-stak.exe");

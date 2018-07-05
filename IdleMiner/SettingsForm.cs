@@ -21,6 +21,7 @@ namespace IdleMiner
             idleAmdTextBox.Text = Program.Settings.IdleAmdFile;
             activeCpuCheckBox.CheckState = Program.Settings.ActiveCpuEnabled ? CheckState.Checked : CheckState.Unchecked;
             activeCpuTextBox.Text = Program.Settings.ActiveCpuFile;
+            activeCpuUsageNumericUpDown.Value = Program.Settings.ActiveCpuUsage;
             activeNvidiaCheckBox.CheckState = Program.Settings.ActiveNvidiaEnabled ? CheckState.Checked : CheckState.Unchecked;
             activeNvidiaTextBox.Text = Program.Settings.ActiveNvidiaFile;
             activeAmdCheckBox.CheckState = Program.Settings.ActiveAmdEnabled ? CheckState.Checked : CheckState.Unchecked;
@@ -32,7 +33,7 @@ namespace IdleMiner
             Program.Settings.MinerLocation = minerLocationTextBox.Text;
             Program.Settings.ConfigFile = configTextBox.Text;
             Program.Settings.PoolFile = poolTextBox.Text;
-            Program.Settings.IdleTime = idleTimeNumericUpDown.Value;
+            Program.Settings.IdleTime = (int) idleTimeNumericUpDown.Value;
             Program.Settings.IdleCpuEnabled = idleCpuCheckBox.CheckState == CheckState.Checked ? true : false;
             Program.Settings.IdleCpuFile = idleCpuTextBox.Text;
             Program.Settings.IdleNvidiaEnabled = idleNvidiaCheckBox.CheckState == CheckState.Checked ? true : false;
@@ -41,6 +42,7 @@ namespace IdleMiner
             Program.Settings.IdleAmdFile = idleAmdTextBox.Text;
             Program.Settings.ActiveCpuEnabled = activeCpuCheckBox.CheckState == CheckState.Checked ? true : false;
             Program.Settings.ActiveCpuFile = activeCpuTextBox.Text;
+            Program.Settings.ActiveCpuUsage = (int) activeCpuUsageNumericUpDown.Value;
             Program.Settings.ActiveNvidiaEnabled = activeNvidiaCheckBox.CheckState == CheckState.Checked ? true : false;
             Program.Settings.ActiveNvidiaFile = activeNvidiaTextBox.Text;
             Program.Settings.ActiveAmdEnabled = activeAmdCheckBox.CheckState == CheckState.Checked ? true : false;
@@ -107,11 +109,17 @@ namespace IdleMiner
             {
                 activeCpuTextBox.Enabled = true;
                 activeCpuBrowseButton.Enabled = true;
+                activeCpuUsageLabel.Enabled = true;
+                activeCpuUsageNumericUpDown.Enabled = true;
+                activeCpuUsageUnitsLabel.Enabled = true;
             }
             else
             {
                 activeCpuTextBox.Enabled = false;
                 activeCpuBrowseButton.Enabled = false;
+                activeCpuUsageLabel.Enabled = false;
+                activeCpuUsageNumericUpDown.Enabled = false;
+                activeCpuUsageUnitsLabel.Enabled = false;
             }
         }
 
