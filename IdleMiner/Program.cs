@@ -9,6 +9,7 @@ namespace IdleMiner
     {
         public static Settings Settings;
         public static bool ModifiedSettings;
+        public static bool MiningPaused;
         private static bool exitThreads;
         private static XmrStak xmrStak;
 
@@ -46,6 +47,7 @@ namespace IdleMiner
                     Settings.ToJsonFile();
 
                     exitThreads = false;
+                    MiningPaused = false;
                     ModifiedSettings = true;
                     Thread miningThread = new Thread(new ThreadStart(MiningThread));
                     miningThread.Start();
@@ -69,6 +71,12 @@ namespace IdleMiner
                 {
                     xmrStak.Stop();
                     break;
+                }
+                if (MiningPaused)
+                {
+                    xmrStak.Stop();
+                    Thread.Sleep(100);
+                    continue;
                 }
 
                 int idleTime = UserActivity.GetIdleTime();
