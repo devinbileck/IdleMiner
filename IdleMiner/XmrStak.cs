@@ -3,117 +3,79 @@ using System.IO;
 
 namespace IdleMiner
 {
-    class XmrStak
+    class XmrStak : Miner
     {
-        private Process process;
         public string Path { get; set; }
 
-        public XmrStak(string path)
+        public XmrStak(string path, string arguments = null) : base(path, arguments)
         {
             Path = path;
         }
 
-        public bool IsRunning()
-        {
-            if (!File.Exists(Path))
-                return false;
-            string fileName = System.IO.Path.GetFileName(Path);
-            Process[] processes = Process.GetProcessesByName(fileName.Substring(0, fileName.LastIndexOf('.')));
-            return processes.Length > 0;
-        }
-
         public void StartIdleMode(Settings settings)
         {
-            string cpuFile = "";
-            string nvidiaFile = "";
-            string amdFile = "";
-            if (settings.IdleCpuEnabled)
-                cpuFile = settings.IdleCpuFile;
-            if (settings.IdleNvidiaEnabled)
-                nvidiaFile = settings.IdleNvidiaFile;
-            if (settings.IdleAmdEnabled)
-                amdFile = settings.IdleAmdFile;
-            Start(settings.ConfigFile, settings.PoolFile, cpuFile, nvidiaFile, amdFile);
-        }
-
-        public void StartActiveMode(Settings settings)
-        {
-            string cpuFile = "";
-            string nvidiaFile = "";
-            string amdFile = "";
-            if (settings.ActiveCpuEnabled)
-                cpuFile = settings.ActiveCpuFile;
-            if (settings.ActiveNvidiaEnabled)
-                nvidiaFile = settings.ActiveNvidiaFile;
-            if (settings.ActiveAmdEnabled)
-                amdFile = settings.ActiveAmdFile;
-            Start(settings.ConfigFile, settings.PoolFile, cpuFile, nvidiaFile, amdFile);
-        }
-
-        public void Start(string configFile, string poolFile, string cpuFile = "", string nvidiaFile = "", string amdFile = "")
-        {
-            if (IsRunning())
-            {
-                try
-                {
-                    Stop();
-                }
-                catch (System.Exception)
-                {
-                    return;
-                }
-            }
-            process = new Process();
             bool validConfig = false;
-            process.StartInfo.FileName = Path;
             string[] arguments = new string[5];
-            arguments[0] = string.Format("--config \"{0}\"", configFile);
-            arguments[1] = string.Format("--poolconf \"{0}\"", poolFile);
+            arguments[0] = string.Format("--config \"{0}\"", settings.ConfigFile);
+            arguments[1] = string.Format("--poolconf \"{0}\"", settings.PoolFile);
             arguments[2] = "--noCPU";
             arguments[3] = "--noNVIDIA";
             arguments[4] = "--noAMD";
-            if (File.Exists(cpuFile))
+            if (settings.IdleCpuEnabled && File.Exists(settings.IdleCpuFile))
             {
-                arguments[2] = string.Format("--cpu \"{0}\"", cpuFile);
+                arguments[2] = string.Format("--cpu \"{0}\"", settings.IdleCpuFile);
                 validConfig = true;
             }
-            if (File.Exists(nvidiaFile))
+            if (settings.IdleNvidiaEnabled && File.Exists(settings.IdleNvidiaFile))
             {
-                arguments[3] = string.Format("--nvidia \"{0}\"", nvidiaFile);
+                arguments[3] = string.Format("--nvidia \"{0}\"", settings.IdleNvidiaFile);
                 validConfig = true;
             }
-            if (File.Exists(amdFile))
+            if (settings.IdleAmdEnabled && File.Exists(settings.IdleAmdFile))
             {
-                arguments[4] = string.Format("--amd \"{0}\"", amdFile);
+                arguments[4] = string.Format("--amd \"{0}\"", settings.IdleAmdFile);
                 validConfig = true;
             }
             if (validConfig == false)
             {
                 return;
             }
-            process.StartInfo.Arguments = string.Join(" ", arguments);
-            process.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
-            process.Start();
+            Stop();
+            Arguments = string.Join(" ", arguments);
+            Start();
         }
 
-        public void Stop()
+        public void StartActiveMode(Settings settings)
         {
-            if (!IsRunning())
+            bool validConfig = false;
+            string[] arguments = new string[5];
+            arguments[0] = string.Format("--config \"{0}\"", settings.ConfigFile);
+            arguments[1] = string.Format("--poolconf \"{0}\"", settings.PoolFile);
+            arguments[2] = "--noCPU";
+            arguments[3] = "--noNVIDIA";
+            arguments[4] = "--noAMD";
+            if (settings.ActiveCpuEnabled && File.Exists(settings.ActiveCpuFile))
+            {
+                arguments[2] = string.Format("--cpu \"{0}\"", settings.ActiveCpuFile);
+                validConfig = true;
+            }
+            if (settings.ActiveNvidiaEnabled && File.Exists(settings.ActiveNvidiaFile))
+            {
+                arguments[3] = string.Format("--nvidia \"{0}\"", settings.ActiveNvidiaFile);
+                validConfig = true;
+            }
+            if (settings.ActiveAmdEnabled && File.Exists(settings.ActiveAmdFile))
+            {
+                arguments[4] = string.Format("--amd \"{0}\"", settings.ActiveAmdFile);
+                validConfig = true;
+            }
+            if (validConfig == false)
             {
                 return;
             }
-            try
-            {
-                process.Kill();
-            }
-            catch (System.Exception)
-            {
-                string fileName = System.IO.Path.GetFileName(Path);
-                Process[] processes = Process.GetProcessesByName(
-                    fileName.Substring(0, fileName.LastIndexOf('.')));
-                if (processes.Length > 0)
-                    processes[0].Kill();
-            }
+            Stop();
+            Arguments = string.Join(" ", arguments);
+            Start();
         }
     }
 }
