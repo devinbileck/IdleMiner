@@ -34,7 +34,7 @@ namespace IdleMiner
         {
             Settings settings = new Settings(settingsFilePath);
             settings.IdleTime = 60;
-            settings.ActiveCpuUsage = 90;
+            settings.ActiveCpuUsage = 50;
             if (File.Exists(Path.Combine(Environment.CurrentDirectory, "xmr-stak.exe")))
             {
                 settings.MinerLocation = Path.Combine(Environment.CurrentDirectory, "xmr-stak.exe");
