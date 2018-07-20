@@ -107,6 +107,7 @@
     <Content Include="Images\Logo_256.png" />
     <Content Include="Images\Logo_512.png" />
     <Content Include="Images\Logo_64.png" />
+    <Content Include="Images\Logo_Paused.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

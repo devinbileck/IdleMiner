@@ -109,5 +109,15 @@ namespace IdleMiner.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Logo_Icon_Paused {
+            get {
+                object obj = ResourceManager.GetObject("Logo_Icon_Paused", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }
