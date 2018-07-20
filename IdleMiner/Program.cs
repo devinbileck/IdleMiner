@@ -75,6 +75,7 @@ namespace IdleMiner
                 if (MiningPaused)
                 {
                     xmrStak.Stop();
+                    idle = true;
                     Thread.Sleep(100);
                     continue;
                 }
