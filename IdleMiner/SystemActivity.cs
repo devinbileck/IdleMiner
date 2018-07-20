@@ -1,30 +1,47 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Threading;
 
 namespace IdleMiner
 {
     class SystemActivity
     {
-        public static int GetCPUUsage(string instanceName = "_Total")
+        public static (int total, int process) GetCPUUsage(Process process = null)
         {
-            PerformanceCounter cpuCounter = new PerformanceCounter
+            PerformanceCounter totalCpuCounter = null;
+            PerformanceCounter processCpuCounter = null;
+
+            totalCpuCounter = new PerformanceCounter
             {
                 CategoryName = "Processor",
                 CounterName = "% Processor Time",
-                InstanceName = instanceName
+                InstanceName = "_Total"
             };
-            try
+            totalCpuCounter.NextValue();    // Initialize to start capturing (initial value will always be 0)
+
+            if (process != null)
             {
-                // Initial value will always be 0
-                float initialValue = cpuCounter.NextValue();
-                // Wait before getting the value again
-                Thread.Sleep(1000);
-                // Second time getting the value will be correct
-                return (int)cpuCounter.NextValue();
+                processCpuCounter = new PerformanceCounter
+                {
+                    CategoryName = "Process",
+                    CounterName = "% Processor Time",
+                    InstanceName = process.ProcessName
+                };
+                processCpuCounter.NextValue();  // Initialize to start capturing (initial value will always be 0)
             }
-            catch (System.InvalidOperationException)
+
+            // Allow some time to accumulate data
+            Thread.Sleep(1000);
+
+            if (process == null)
             {
-                return 0;
+                return ((int)totalCpuCounter.NextValue(), 0);
+            }
+            else
+            {
+                // CPU data for a specific process is provided as a percentage of a single core
+                // so have to divide by ProcessorCount to get an overall value
+                return ((int)totalCpuCounter.NextValue(), (int)(processCpuCounter.NextValue() / Environment.ProcessorCount));
             }
         }
     }

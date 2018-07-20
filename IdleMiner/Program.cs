@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
@@ -60,6 +61,9 @@ namespace IdleMiner
         private static void MiningThread()
         {
             bool idle = true;
+            bool overCpuUsage = false;
+            DateTime startActiveModeTime = DateTime.Now;
+            DateTime stopActiveModeTime = DateTime.Now;
 
             xmrStak = new XmrStak(Settings.MinerLocation);
 
@@ -72,15 +76,40 @@ namespace IdleMiner
                 }
 
                 int idleTime = UserActivity.GetIdleTime();
+                var cpuUsage = SystemActivity.GetCPUUsage(xmrStak.FindProcess());
 
-                if (ModifiedSettings || (idleTime < Settings.IdleTime && idle))
+                if (idleTime < Settings.IdleTime)
                 {
-                    xmrStak.StartActiveMode(Settings);
-                    idle = false;
-                    ModifiedSettings = false;
+                    if (cpuUsage.total - cpuUsage.process > Settings.ActiveCpuUsage)
+                    {
+                        if (overCpuUsage == false && DateTime.Now.Subtract(startActiveModeTime) >= TimeSpan.FromSeconds(10))
+                        {
+                            Debug.WriteLine(string.Format("{0:yyyy/MM/dd HH:mm:ss tt} | Stop active mode; CPU usage {1}%", DateTime.Now, cpuUsage.total - cpuUsage.process));
+                            xmrStak.Stop();
+                            overCpuUsage = true;
+                            idle = true;
+                            stopActiveModeTime = DateTime.Now;
+                        }
+                    }
+                    else
+                    {
+                        overCpuUsage = false;
+                    }
+                    if (overCpuUsage == false && (ModifiedSettings || idle))
+                    {
+                        if (DateTime.Now.Subtract(stopActiveModeTime) >= TimeSpan.FromSeconds(10))
+                        {
+                            Debug.WriteLine(string.Format("{0:yyyy/MM/dd HH:mm:ss tt} | Start active mode; CPU usage {1}%", DateTime.Now, cpuUsage.total - cpuUsage.process));
+                            xmrStak.StartActiveMode(Settings);
+                            idle = false;
+                            ModifiedSettings = false;
+                            startActiveModeTime = DateTime.Now;
+                        }
+                    }
                 }
                 else if (idleTime >= Settings.IdleTime && idle == false)
                 {
+                    Debug.WriteLine(string.Format("{0:yyyy/MM/dd HH:mm:ss tt} | Start idle mode", DateTime.Now));
                     xmrStak.StartIdleMode(Settings);
                     idle = true;
                 }
