@@ -48,7 +48,9 @@ namespace IdleMiner
             if (!isSettingsLoaded)
             {
                 isSettingsLoaded = true;
-                new SettingsForm().ShowDialog();
+                SettingsForm form = new SettingsForm();
+                form.StartPosition = FormStartPosition.CenterScreen;
+                form.ShowDialog();
                 isSettingsLoaded = false;
             }
         }
@@ -58,7 +60,9 @@ namespace IdleMiner
             if (!isAboutLoaded)
             {
                 isAboutLoaded = true;
-                new AboutBox().ShowDialog();
+                AboutBox form = new AboutBox();
+                form.StartPosition = FormStartPosition.CenterScreen;
+                form.ShowDialog();
                 isAboutLoaded = false;
             }
         }
