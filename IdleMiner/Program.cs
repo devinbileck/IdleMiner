@@ -71,6 +71,9 @@ namespace IdleMiner
 
             for (; ; )
             {
+                xmrStak.Path = Settings.MinerLocation;
+                xmrStak.Command = Settings.MinerLocation;
+
                 if (exitThreads)
                 {
                     xmrStak.Stop();
