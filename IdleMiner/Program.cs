@@ -91,7 +91,7 @@ namespace IdleMiner
                 {
                     if (cpuUsage.total - cpuUsage.process > Settings.ActiveCpuUsage)
                     {
-                        if (overCpuUsage == false && DateTime.Now.Subtract(startActiveModeTime) >= TimeSpan.FromSeconds(10))
+                        if (xmrStak.IsRunning() && overCpuUsage == false && DateTime.Now.Subtract(startActiveModeTime) >= TimeSpan.FromSeconds(10))
                         {
                             Debug.WriteLine(string.Format("{0:yyyy/MM/dd HH:mm:ss tt} | Stop active mode; CPU usage {1}%", DateTime.Now, cpuUsage.total - cpuUsage.process));
                             xmrStak.Stop();
