@@ -322,7 +322,7 @@
             this.activeCpuUsageNumericUpDown.Size = new System.Drawing.Size(64, 20);
             this.activeCpuUsageNumericUpDown.TabIndex = 27;
             this.activeCpuUsageNumericUpDown.Value = new decimal(new int[] {
-            90,
+            50,
             0,
             0,
             0});
