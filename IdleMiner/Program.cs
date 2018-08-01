@@ -96,7 +96,7 @@ namespace IdleMiner
                     {
                         if (xmrStak.IsRunning() && overCpuUsage == false && DateTime.Now.Subtract(startActiveModeTime) >= TimeSpan.FromSeconds(10))
                         {
-                            Debug.WriteLine(string.Format("{0:yyyy/MM/dd HH:mm:ss tt} | Stop active mode; CPU usage {1}%", DateTime.Now, cpuUsage.total - cpuUsage.process));
+                            Debug.WriteLine(string.Format("{0:yyyy/MM/dd HH:mm:ss tt} | Stop active mode; CPU usage > {1}% ({2}%)", DateTime.Now, Settings.ActiveCpuUsage, cpuUsage.total - cpuUsage.process));
                             xmrStak.Stop();
                             overCpuUsage = true;
                             idle = true;
@@ -111,7 +111,7 @@ namespace IdleMiner
                     {
                         if (DateTime.Now.Subtract(stopActiveModeTime) >= TimeSpan.FromSeconds(10))
                         {
-                            Debug.WriteLine(string.Format("{0:yyyy/MM/dd HH:mm:ss tt} | Start active mode; CPU usage {1}%", DateTime.Now, cpuUsage.total - cpuUsage.process));
+                            Debug.WriteLine(string.Format("{0:yyyy/MM/dd HH:mm:ss tt} | Start active mode; CPU usage <= {1}% ({2}%)", DateTime.Now, Settings.ActiveCpuUsage, cpuUsage.total - cpuUsage.process));
                             xmrStak.StartActiveMode(Settings);
                             idle = false;
                             ModifiedSettings = false;
