@@ -33,7 +33,7 @@ namespace IdleMiner
             // Allow some time to accumulate data
             Thread.Sleep(1000);
 
-            if (process == null)
+            if (process == null || process.HasExited)
             {
                 return ((int)totalCpuCounter.NextValue(), 0);
             }

@@ -107,7 +107,7 @@ namespace IdleMiner
                     {
                         overCpuUsage = false;
                     }
-                    if (overCpuUsage == false && (ModifiedSettings || idle))
+                    if (overCpuUsage == false && (ModifiedSettings || idle || xmrStak.FindProcess() == null))
                     {
                         if (DateTime.Now.Subtract(stopActiveModeTime) >= TimeSpan.FromSeconds(10))
                         {
@@ -119,7 +119,7 @@ namespace IdleMiner
                         }
                     }
                 }
-                else if (idleTime >= Settings.IdleTime && idle == false)
+                else if (idleTime >= Settings.IdleTime && (idle == false || xmrStak.FindProcess() == null))
                 {
                     Debug.WriteLine(string.Format("{0:yyyy/MM/dd HH:mm:ss tt} | Start idle mode", DateTime.Now));
                     xmrStak.StartIdleMode(Settings);
