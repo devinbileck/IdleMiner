@@ -19,7 +19,7 @@ namespace IdleMiner
             };
             totalCpuCounter.NextValue();    // Initialize to start capturing (initial value will always be 0)
 
-            if (process != null)
+            if (process != null && process.HasExited != true)
             {
                 processCpuCounter = new PerformanceCounter
                 {
