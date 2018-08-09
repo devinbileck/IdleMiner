@@ -92,10 +92,10 @@ namespace IdleMiner
                 }
 
                 int idleTime = UserActivity.GetIdleTime();
-                var cpuUsage = SystemActivity.GetCPUUsage(xmrStak.FindProcess());
-
+                
                 if (idleTime < Settings.IdleTime)
                 {
+                    var cpuUsage = SystemActivity.GetCPUUsage(xmrStak.FindProcess());
                     if (cpuUsage.total - cpuUsage.process > Settings.ActiveCpuUsage)
                     {
                         if (xmrStak.IsRunning() && overCpuUsage == false && DateTime.Now.Subtract(startActiveModeTime) >= TimeSpan.FromSeconds(10))
