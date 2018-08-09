@@ -87,7 +87,6 @@ namespace IdleMiner
                         xmrStak.Stop();
                     }
                     idle = true;
-                    Thread.Sleep(100);
                     continue;
                 }
 
@@ -129,7 +128,6 @@ namespace IdleMiner
                     xmrStak.StartIdleMode(Settings);
                     idle = true;
                 }
-                Thread.Sleep(1000);
             }
         }
 
