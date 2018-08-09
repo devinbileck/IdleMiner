@@ -81,7 +81,11 @@ namespace IdleMiner
                 }
                 if (MiningPaused)
                 {
-                    xmrStak.Stop();
+                    if (xmrStak.FindProcess() != null)
+                    {
+                        Debug.WriteLine(string.Format("{0:yyyy/MM/dd HH:mm:ss tt} | Mining paused", DateTime.Now));
+                        xmrStak.Stop();
+                    }
                     idle = true;
                     Thread.Sleep(100);
                     continue;
