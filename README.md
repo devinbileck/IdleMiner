@@ -18,4 +18,4 @@ and either disabled or reduced hash rates (minimal CPU and GPU resources) while 
 
 4. Right click on the icon and select the Settings option. Configure your settings as desired and click OK to begin mining.
 
-![Settings Dialog](https://image.ibb.co/d5ODMd/Idle_Miner_Settings.png "Settings Dialog")
+![Settings Dialog](https://image.ibb.co/emRfd9/Idle_Miner_Settings.png "Settings Dialog")
