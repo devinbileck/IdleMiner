@@ -29,5 +29,15 @@ namespace IdleMiner
             // When the application closes, this will remove the icon from the system tray immediately
             notifyIcon.Dispose();
         }
+
+        public void ShowWarningIcon()
+        {
+            notifyIcon.Icon = Resources.Logo_Warning_Icon;
+        }
+
+        public void ShowNormalIcon()
+        {
+            notifyIcon.Icon = Resources.Logo_Icon;
+        }
     }
 }

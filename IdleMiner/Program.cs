@@ -41,6 +41,7 @@ namespace IdleMiner
                         catch (Newtonsoft.Json.JsonReaderException)
                         {
                             // Invalid json file, use default settings
+                            systemTrayIcon.ShowWarningIcon();
                         }
                     }
                     Settings.ToJsonFile();
