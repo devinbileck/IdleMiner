@@ -87,6 +87,7 @@ namespace IdleMiner
                         xmrStak.Stop();
                     }
                     idle = true;
+                    Thread.Sleep(500);
                     continue;
                 }
 
@@ -127,6 +128,10 @@ namespace IdleMiner
                     Debug.WriteLine(string.Format("{0:yyyy/MM/dd HH:mm:ss tt} | Start idle mode", DateTime.Now));
                     xmrStak.StartIdleMode(Settings);
                     idle = true;
+                }
+                else
+                {
+                    Thread.Sleep(500);
                 }
             }
         }
