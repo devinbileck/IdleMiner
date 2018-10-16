@@ -7,6 +7,9 @@ namespace IdleMiner
 {
     class Miner
     {
+        public enum States { Inactive, Active, Paused, Terminated };
+        public States State { get; set; }
+
         [StructLayout(LayoutKind.Sequential)]
         struct STARTUPINFO
         {
@@ -90,6 +93,8 @@ namespace IdleMiner
 
             CloseHandle(pi.hProcess);
             CloseHandle(pi.hThread);
+
+            this.State = States.Active;
         }
 
         public void Stop()

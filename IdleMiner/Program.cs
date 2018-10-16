@@ -8,6 +8,8 @@ namespace IdleMiner
 {
     public static class Program
     {
+        public enum UserStates { Idle, Active };
+        public static UserStates UserState { get; set; }
         public static Settings Settings;
         public static bool ModifiedSettings;
         public static bool MiningPaused;
@@ -46,6 +48,8 @@ namespace IdleMiner
                         }
                     }
                     Settings.ToJsonFile();
+
+                    UserState = UserStates.Active;
 
                     exitThreads = false;
                     MiningPaused = false;
@@ -92,9 +96,10 @@ namespace IdleMiner
                 }
 
                 int idleTime = UserActivity.GetIdleTime();
-                
+
                 if (idleTime < Settings.IdleTime)
                 {
+                    UserState = UserStates.Active;
                     var cpuUsage = SystemActivity.GetCPUUsage(xmrStak.FindProcess());
                     if (cpuUsage.total - cpuUsage.process > Settings.ActiveCpuUsage)
                     {
@@ -123,11 +128,15 @@ namespace IdleMiner
                         }
                     }
                 }
-                else if (idleTime >= Settings.IdleTime && (idle == false || xmrStak.FindProcess() == null))
+                else if (idleTime >= Settings.IdleTime)
                 {
-                    Debug.WriteLine(string.Format("{0:yyyy/MM/dd HH:mm:ss tt} | Start idle mode", DateTime.Now));
-                    xmrStak.StartIdleMode(Settings);
-                    idle = true;
+                    UserState = UserStates.Idle;
+                    if (idle == false || xmrStak.FindProcess() == null)
+                    {
+                        Debug.WriteLine(string.Format("{0:yyyy/MM/dd HH:mm:ss tt} | Start idle mode", DateTime.Now));
+                        xmrStak.StartIdleMode(Settings);
+                        idle = true;
+                    }
                 }
                 else
                 {
